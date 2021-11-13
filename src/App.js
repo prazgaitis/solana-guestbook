@@ -16,9 +16,6 @@ const secret = new Uint8Array(arr);
 const baseAccount = web3.Keypair.fromSecretKey(secret);
 console.log({ baseAccount })
 
-// SystemProgram is a reference to the Solana runtime!
-const { SystemProgram, Keypair } = web3;
-
 // Get our program's id form the IDL file.
 const programID = new PublicKey(idl.metadata.address);
 
@@ -117,33 +114,12 @@ const App = () => {
     </button>
   )
 
-  // const createAccount = async () => {
-  //   try {
-  //     const provider = getProvider();
-  //     const program = new Program(idl, programID, provider);
-  //     console.log("ping")
-  //     await program.rpc.doSomething({
-  //       accounts: {
-  //         baseAccount: baseAccount.publicKey,
-  //         user: provider.wallet.publicKey,
-  //         systemProgram: SystemProgram.programId,
-  //       },
-  //       signers: [baseAccount]
-  //     });
-  //     console.log("Created a new BaseAccount w/ address:", baseAccount.publicKey.toString())
-  //     await getCommentList();
-
-  //   } catch (error) {
-  //     console.log("Error creating BaseAccount account:", error)
-  //   }
-  // }
-
   const CommentBox = ({ commentText, timestamp, userAddress }) => (
     <div className="gif-item" key={timestamp}>
       <div>
         <div className="line sub-sub-text">{commentText}</div>
         <span className="line muted">{moment(new Date(timestamp * 1000)).fromNow()}</span>
-        <span className="line muted-darker"> // </span>
+        <span className="line muted-darker">{"//"}</span>
         <span className="line muted-darker">{userAddress.toString()}</span>
       </div>
     </div>
@@ -153,7 +129,6 @@ const App = () => {
     return (
       <div>
         <div className="connected-container">
-          {/* Go ahead and add this input and button to start */}
           <input
             type="text"
             placeholder="Leave a comment!"
@@ -204,6 +179,7 @@ const App = () => {
     if (walletAddress) {
       getCommentList()
     }
+    // eslint-disable-next-line
   }, [walletAddress]);
 
   return (
